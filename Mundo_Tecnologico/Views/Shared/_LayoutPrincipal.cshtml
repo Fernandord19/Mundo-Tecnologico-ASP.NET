@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+@{
+
+}
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="~/Content/bootstrap.css">
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/Content/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="~/Content/css/responsive.bootstrap4.css">
+    <link rel="stylesheet" href="~/Content/css/buttons.bootstrap4.min.css">
+
+    <!-- Fuente -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/Content/css/general.css">
+</head>
+<body>
+
+    <div class="header">
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">Mundo Tecnológico</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Home")">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Catalogo", "Ecommerce")">Catálogo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Nosotros", "Home")">Nosotros</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mantenimiento</a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="@Url.Action("Listado", "Productos")">Productos</a>
+                            <a class="dropdown-item" href="@Url.Action("Listado", "Usuarios")">Usuarios</a>
+                            <a class="dropdown-item"
+                               href="@Url.Action("Listado", "Categorias")">Categorías</a>
+                            <a class="dropdown-item" href="@Url.Action("Listado", "Marcas")">Marcas</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reportes</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Productos</a>
+                            <a class="dropdown-item" href="#">Ventas</a>
+                            <a class="dropdown-item" href="#">Usuarios</a>
+                            <a class="dropdown-item" href="#">Clientes</a>
+                        </div>
+                    </li>
+
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    @if (Session["usuario"] != null)
+                    {
+                        <li class="nav-item dropdown mr-auto">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user"></i> Nombre Completo del Usuario
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Mi Cuenta</a>
+                                <a class="dropdown-item" href="ServletUsuario?operacion=cerrarSesion">Cerrar Sesión</a>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Login", "Home")">Iniciar Sesión</a>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </nav>
+
+    </div>
+
+    <div class="contenido">
+        @RenderBody()
+    </div>
+
+    <footer class="text-center bg-dark">
+        <div class="">
+            <!-- Facebook -->
+            <a class="btn btn-link btn-floating btn-lg m-1 text-light " href="#!" role="button"
+               data-mdb-ripple-color="light"><i class="fab fa-facebook-f"></i></a>
+
+            <!-- Twitter -->
+            <a class="btn btn-link btn-floating btn-lg m-1 text-light " href="#!" role="button"
+               data-mdb-ripple-color="dark"><i class="fab fa-twitter"></i></a>
+
+            <!-- Instagram -->
+            <a class="btn btn-link btn-floating btn-lg m-1 text-light " href="#!" role="button"
+               data-mdb-ripple-color="dark"><i class="fab fa-instagram"></i></a>
+        </div>
+        <!-- Copyright -->
+        <div class="text-center text-light">
+            © 2021
+            <a class="text-light" href="@Url.Action("Index", "Home")">Mundo Tecnológico</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+
+    <!-- Font Awesome-->
+    <script src="https://kit.fontawesome.com/7eb0bd06bd.js" crossorigin="anonymous"></script>
+
+    <!-- JQuery -->
+    <script src="~/Scripts/jquery.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="~/Scripts/bootstrap.bundle.js"></script>
+
+    <!-- DataTables  & Plugins -->
+    <script src="~/Scripts/jquery.dataTables.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap4.js"></script>
+    <script src="~/Scripts/dataTables.responsive.js"></script>
+    <script src="~/Scripts/responsive.bootstrap4.js"></script>
+
+    <!-- jquery-validation -->
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/additional-methods.js"></script>
+
+    <!-- Swee Alert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- JS -->
+    <script src="~/Scripts/general.js"></script>
+
+
+</body>
+</html>

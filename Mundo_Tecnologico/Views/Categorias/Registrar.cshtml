@@ -1,0 +1,58 @@
+﻿@model Mundo_Tecnologico.Models.Categoria
+
+@{
+    ViewBag.Title = "Registrar Categoría | Mundo Tecnológico";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+
+<div class="container-fluid contenedor_mantenimiento">
+    <div class="col-md-6 m-auto formulario_mantenimiento">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title text-center">Registrar Categoria</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form id="formularioCategoriaRegistro" action="@Url.Action("Registrar")" method="post">
+                <div class="card-body">
+
+                    <div class="row m-auto  col-md-12">
+
+                        <div class="form-group col-md-12">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre de la Categoria">
+                        </div>
+
+                    </div>
+
+                    <div class="row m-auto  col-md-12">
+
+                        <div class="form-group col-md-12">
+                            <label for="estado">Estado</label>
+                            <select class="custom-select" id="estado" name="estado">
+                                <option disabled selected>Seleccione</option>
+                                <option value="1">Activo</option>
+                                <option value="2">Eliminado</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    
+
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success mr-5">Registrar Categoria</button>
+                    <a href="@Url.Action("Listado", "Categorias")" class="btn btn-secondary">Volver al Listado</a>
+                </div>
+            </form>
+        </div>
+        <!-- /.card -->
+    </div>
+    <!--/.col (left) -->
+    <!-- right column -->
+    <div class="col-md-6">
+
+    </div>
+    <!--/.col (right) -->
+</div><!-- /.container-fluid -->

@@ -1,0 +1,48 @@
+﻿@model Mundo_Tecnologico.Models.Categoria
+
+@{
+    ViewBag.Title = "Detalle Categoría | Mundo Tecnológico";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+
+<div class="contenedor_mantenimiento col-md-6 m-auto">
+    <div class="card card-primary">
+
+        <div class="card-header text-center">
+            <h2 class="">Detalle de la Categoria</h2>
+        </div>
+
+        <div class="card-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    Código
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.codigo)
+                </dd>
+
+                <dt>
+                    Nombre
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.nombre)
+                </dd>
+
+                <dt>
+                    Estado
+                </dt>
+
+                <dd>
+                    @(Model.estado == 1 ? "Activo" : "Eliminado")
+                </dd>
+
+            </dl>
+            <div class="card-footer d-flex justify-content-center">
+                <a href="@Url.Action("Editar", "Categorias", new { codigo = Model.codigo})" class="btn btn-primary mr-5 col-sm-4">Editar Categoria</a>
+                <a href="@Url.Action("Listado", "Categorias")" class="btn btn-secondary col-sm-4">Volver al Listado</a>
+            </div>
+        </div>
+    </div>
+</div>

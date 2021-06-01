@@ -1,0 +1,53 @@
+﻿@model Mundo_Tecnologico.Models.Marca
+
+@{
+    ViewBag.Title = "Editar Marca | Mundo Tecnológico";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+
+<div class="container-fluid contenedor_mantenimiento">
+    <div class="col-md-6 m-auto formulario_mantenimiento">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title text-center">Editar Marca</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form id="formularioMarca" action="@Url.Action("Editar", "Marcas")" enctype="multipart/form-data" method="post">
+                <div class="card-body">
+
+                    <input type="hidden" name="codigo" value="@Model.codigo" />
+
+                    <div class="row m-auto  col-md-12">
+
+                        <div class="form-group col-md-12">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" value="@Model.nombre">
+                        </div>
+
+                    </div>
+
+                    <div class="row m-auto  col-md-12">
+
+                        <div class="form-group col-md-12">
+                            <label for="estado">Estado</label>
+                            <select class="custom-select" id="estado" name="estado">
+                                <option disabled>Seleccione</option>
+                                <option value="1" @(Model.estado == 1 ? "selected" : "")>Activo</option>
+                                <option value="2" @(Model.estado == 2 ? "selected" : "")>Eliminado</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success mr-5">Guardar Cambios</button>
+                    <a href="@Url.Action("Listado", "Marcas")" class="btn btn-secondary">Volver al Listado</a>
+                </div>
+            </form>
+        </div>
+        <!-- /.card -->
+    </div>
+</div><!-- /.container-fluid -->

@@ -1,0 +1,61 @@
+body{
+    font-family: 'Electrolize', sans-serif;
+    background-image: url(../img/fondo.jpg);
+	  background-position: center center;	  
+	  background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+.formulario {
+  width: 50%;
+  max-width: 500px;
+  margin: 13em auto 0px auto;
+}
+
+.logo{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.logo img{
+  width: 50%;
+}
+
+
+@media only screen and (max-width: 360px) {
+    .formulario {
+        width: 90%;
+        margin: 8em auto 0px auto;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .formulario {
+        width: 75%;
+        margin: 9em auto 0px auto;
+    }
+}
+
+@media only screen and (min-width: 720px) {
+    .formulario {
+        width: 75%;
+        margin: 14em auto 0px auto;
+    }
+
+    .logo {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+        .logo img {
+            width: 50%;
+        }
+}
+
+.form-control:focus{
+  font-size: 20px;
+  border: 2px solid rgb(95, 159, 233);
+}

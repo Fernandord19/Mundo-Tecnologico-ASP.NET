@@ -1,0 +1,139 @@
+body{
+    font-family: 'Electrolize', sans-serif;
+    font-size: 16px !important;
+    box-sizing: border-box
+}
+
+.contenedor_nosotros,
+.contenedor_mantenimiento{
+    margin-top: 30px !important;
+}
+
+footer {
+    margin-top: 25px;
+}
+
+.contenido{
+    min-height: calc(100vh - 84px - 107px);
+}
+
+dt {
+    font-size: 18px;
+}
+
+.custom-file-input ~ .custom-file-label::after {
+    content: "Elegir";
+}
+
+.catalogo{
+    width: 60%;
+    height: 200px;
+}
+
+.cabecera-catalogo{
+    height: 100px;
+}
+
+.foto{
+    max-width: 720px;
+    max-height: 480px;
+}
+
+.fila_categorias {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.categoria {
+    margin: 10px;
+    min-width: 300px;
+    max-width: 720px;
+    width: 23%;
+    height: 25%;
+}
+
+.contenedor_nosotros {
+    max-width: 700px;
+}
+
+.detalle-producto{
+    margin: auto;
+    margin-top: 30px;
+    padding: 100px;
+}
+
+.producto {
+    border: 1px solid gray;
+}
+
+.busqueda{
+    margin-top: 30px;
+}
+
+.fila_nosotros {
+    border: 1px solid black;
+    box-shadow: 5px 5px 5px #737271;
+}
+
+.fila_nosotros img {
+    margin: auto;
+    width: 100%;
+}
+
+@media only screen and (max-width: 480px) {
+    .fila_nosotros {
+        border: 1px solid black;
+        box-shadow: 5px 5px 5px #737271;
+        width: 85%;
+        text-align: center;
+        margin: auto;
+    }
+
+    .fila_nosotros img{
+        margin: auto;
+        width: 50%;
+    }
+
+}
+
+@media only screen and (max-width: 1080px) {
+
+    .detalle-catalogo {
+        width: 49%;
+    }
+
+    .catalogo {
+        width: 40%;
+        height: 150px;
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    .fila_nosotros {
+        border: 1px solid black;
+        box-shadow: 5px 5px 5px #737271;
+        width: 85%;
+        text-align: center;
+        margin: auto;
+    }
+
+        .fila_nosotros img {
+            margin: auto;
+            width: 50%;
+        }
+
+    .detalle-catalogo {
+        width: 85%;
+    }
+
+    .catalogo {
+        width: 40%;
+        height: 150px;
+    }
+
+}
+
+
+
+

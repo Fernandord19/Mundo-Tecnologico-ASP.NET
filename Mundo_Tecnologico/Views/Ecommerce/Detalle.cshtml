@@ -1,0 +1,56 @@
+﻿@model Mundo_Tecnologico.Models.Producto
+
+@{
+    ViewBag.Title = "Detalle del Producto | Mundo Tecnológico";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+
+<!-- Default box -->
+<div class="card card-solid col-md-9 detalle-producto">
+    <div class="card-body">
+        <div class="row d-flex flex-wrap">
+            <div class="col-12 col-sm-5">
+                <div class="col-12">
+                    <img src="@Url.Content(Model.foto)" class="img-fluid m-auto" alt="Product Image">
+                </div>
+            </div>
+            <div class="col-12 col-sm-7">
+                <h3 class="my-3">@Model.nombre.ToUpper()</h3>
+                <p>@Model.descripcion</p>
+
+                <hr>
+
+                <div class="bg-gray py-2 px-3 mt-4">
+                    <h2 class="mb-0">
+                        S/. @Model.precio
+                    </h2>
+                </div>
+
+                <form action="@Url.Action("Detalle", "Ecommerce", new { codigo = Model.codigo})">
+                    <div class="mt-4 row">
+
+                        <div class="col-md-4 mt-1">
+                            <div class="input-group number-spinner">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" data-dir="dwn"><span>-</span></button>
+                                </span>
+                                <input name="cantidad" type="number" min="1" readonly class="form-control text-center" value="1">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" data-dir="up"><span>+</span></button>
+                                </span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-flat">
+                            <i class="fas fa-cart-plus fa-lg mr-2"></i>
+                            Añadir al Carrito
+                        </button>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Mundo_Tecnologico.Models.Producto>
+@{
+    ViewBag.Title = "Listado de Productos | Mundo Tecnológico";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+
+<div class="contenedor_mantenimiento col-md-10 m-auto">
+    <div class="card card-primary">
+
+        <div class="card-header text-center">
+            <h2 class="">Listado de Productos</h2>
+            <a href="@Url.Action("Registrar", "Productos")" class="btn btn-primary">Nuevo Registro</a>
+        </div>
+
+        <div class="card-body">
+
+            @if (TempData["mensaje"] != null)
+            {
+                <div class="alert alert-info" role="alert">
+                    <b><span>@TempData["mensaje"]</span></b>
+                </div>
+            }
+
+            <table id="dataTable" class="table table-sm table-hover dt-responsive wrap" style="width:100%">
+                <thead>
+                    <tr>
+                        <th style="width: 5%;">CÓDIGO</th>
+                        <th style="width: 5%">FOTO</th>
+                        <th class="wrap" style="width: 50%;">NOMBRE</th>
+                        <th style="width: 5%;">PRECIO</th>
+                        <th style="width: 5%;">STOCK</th>
+                        <th style="width: 5%;">MARCA</th>
+                        <th style="width: 10%;">CATEGORÍA</th>
+                        <th style="width: 5%;">Estado</th>
+                        <th style="width: 10%;">OPERACIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.codigo</td>
+                            <td><a class="popUpImage" href=@Url.Content(item.foto)>Ver Foto</a></td>
+                            <td>@item.nombre</td>
+                            <td>S/ @item.precio</td>
+                            <td>@item.stock</td>
+                            <td>@item.nombreMarca</td>
+                            <td>@item.nombreCategoria</td>
+                            <td>@(item.estado == 1 ? "Activo" : "Eliminado")</td>
+                            <td class="text-center">
+                                <a href="@Url.Action("Editar", "Productos", new { codigo = item.codigo})"><i class="fas fa-edit"></i></a>
+                                <a href="@Url.Action("Detalle", "Productos", new { codigo = item.codigo})" style="color: green"><i class="fas fa-info-circle"></i></a>
+                                <a href="@Url.Action("Eliminar", "Productos", new { codigo = item.codigo})" onclick="return ConfirmarDelete(event, '@item.codigo')" style="color: red">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+                <img src="" class="foto">
+            </div>
+        </div>
+    </div>
+
+
+</div>
+

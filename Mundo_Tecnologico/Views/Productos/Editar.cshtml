@@ -1,0 +1,117 @@
+﻿@model Mundo_Tecnologico.Models.Producto
+@using Mundo_Tecnologico.Models;
+@{
+    ViewBag.Title = "Editar Producto | Mundo Tecnológico";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+    IEnumerable<Marca> marcas = ViewBag.marcas as IEnumerable<Marca>;
+    IEnumerable<Categoria> categorias = ViewBag.categorias as IEnumerable<Categoria>;
+}
+
+<div class="container-fluid contenedor_mantenimiento">
+    <div class="col-md-6 m-auto formulario_mantenimiento">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title text-center">Editar Producto</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form id="formularioProducto" action="@Url.Action("Editar", "Productos")" enctype="multipart/form-data" method="post">
+                <div class="card-body">
+
+                    <input type="hidden" name="codigo" value="@Model.codigo" />
+
+                    <div class="row m-auto  col-md-12">
+
+                        <div class="form-group col-md-12">
+                            <label for="foto">Foto (<span>Solo seleccionar si desea cambiarla</span>)</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="foto" accept="image/*" id="foto">
+                                <label class="custom-file-label" for="exampleInputFile">Seleccionar archivo de imagen </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row m-auto  col-md-12">
+
+                        <div class="form-group col-md-12">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" value="@Model.nombre">
+                        </div>
+
+                    </div>
+
+                    <div class="row m-auto  col-md-12">
+
+                        <div class="form-group col-md-12">
+                            <label for="descripcionn">Descripción</label>
+                            <textarea required type="text" rows="5" class="form-control" id="descripcion" name="descripcion">@Model.descripcion</textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="row m-auto  col-md-12">
+
+                        <div class="form-group col-md-6">
+                            <label for="precio">Precio</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">S/.</span>
+                                </div>
+                                <input type="number" class="form-control" name="precio" id="precio" value="@Model.precio">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="stock">Stock</label>
+                            <input type="number" class="form-control" id="stock" name="stock" value="@Model.stock">
+                        </div>
+
+                    </div>
+
+                    <div class="row m-auto  col-md-12">
+
+                        <div class="form-group col-md-4">
+                            <label for="marca">Marca</label>
+                            <select class="custom-select" id="marca" name="codigoMarca">
+                                <option disabled>Seleccione</option>
+                                @foreach (var item in marcas)
+                                {
+                                    <option value="@item.codigo" @(item.nombre == Model.nombreMarca ? "selected" : "")>@item.nombre</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="categoria">Categoría</label>
+                            <select class="custom-select" id="categoria" name="codigoCategoria">
+                                <option disabled>Seleccione</option>
+                                @foreach (var item in categorias)
+                                {
+                                    <option value="@item.codigo" @(item.nombre == Model.nombreCategoria ? "selected" : "")>@item.nombre</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="estado">Estado</label>
+                            <select class="custom-select" id="estado" name="estado">
+                                <option disabled>Seleccione</option>
+                                <option value="1" @(Model.estado == 1? "selected" : "")>Activo</option>
+                                <option value="2" @(Model.estado == 2? "selected" : "")>Eliminado</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success mr-5">Guardar Cambios</button>
+                    <a href="@Url.Action("Listado", "Productos")" class="btn btn-secondary">Volver al Listado</a>
+                </div>
+            </form>
+        </div>
+        <!-- /.card -->
+    </div>
+</div><!-- /.container-fluid -->

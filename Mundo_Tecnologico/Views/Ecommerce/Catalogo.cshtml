@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Mundo_Tecnologico.Models.Producto>
+
+@{
+    ViewBag.Title = "Catalogo | Mundo Tecnológico";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+
+<form class="container busqueda">
+    <div class="form-group  pr-3 pl-3 row d-flex justify-content-around flex-wrap">
+        <label class="col-form-label mt-1">Filtrar productos por: </label>
+        <select class="custom-select col-sm-3 mt-1" name="criterio">
+            <option value="Nombre">Nombre</option>
+            <option value="Categoria">Categoria</option>
+            <option value="Marca">Marca</option>
+        </select>
+        <input class="form-control col-sm-3 mt-1" name="filtro" placeholder="Ingrese el valor a filtrar"/>
+        <button type="submit" class="btn btn-secondary col-sm-3 mt-1">Filtrar</button>
+    </div>
+</form>
+
+<div class="container">
+
+    <table class="w-100">
+
+        <tr class="text-center w-100 d-flex justify-content-around flex-wrap">
+            @foreach (var item in Model)
+            {
+                <td width="32%" class="detalle-catalogo m-1">
+                    <table class="w-100 producto">
+                        <tr class="cabecera-catalogo"><td>@item.nombre.ToUpper()</td></tr>
+                        <tr><td><img src="@Url.Content(item.foto)" class="catalogo" /></td></tr>
+                        <tr><td>Precio Unitario: <strong>S/. @item.precio</strong></td></tr>
+                        <tr><td>Stock: <strong>@item.stock unidades</strong></td></tr>
+                        <tr><td>@Html.ActionLink("Ver Producto", "Detalle", "Ecommerce", new { codigo = item.codigo}, new { @class = "btn btn-primary"})</td></tr>
+                        <tr><td><br /></td></tr>
+                    </table>
+                </td>
+            }
+        </tr>
+
+    </table>
+
+    
+
+</div>
