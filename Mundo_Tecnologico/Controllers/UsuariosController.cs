@@ -58,6 +58,49 @@ namespace Mundo_Tecnologico.Controllers
             }
         }
 
+        Usuario ValidarAcceso(string correo, string clave)
+        {
+            Usuario reg = null;
+
+            using (SqlConnection con = new SqlConnection(cadena))
+            {
+                SqlCommand cmd = new SqlCommand("sp_validar_acceso", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@correo", correo);
+                cmd.Parameters.AddWithValue("@clave", Usuario.GetSHA256(clave));
+                con.Open();
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    reg = new Usuario()
+                    {
+                        codigo = dr.GetString(0),
+                        nombre = dr.GetString(1),
+                        apellidos = dr.GetString(2),
+                        correo = dr.GetString(3),
+                        estado = dr.GetByte(4),
+                        tipoUsuario = dr.GetString(5)
+                    };
+
+                }
+                dr.Close(); con.Close();
+            }
+
+            return reg;
+        }
+
+        void IniciarSesion(Usuario reg)
+        {
+            Session["usuario"] = reg;
+            Session.Timeout = 30; // 30 minutos de inactividad
+        }
+
+        void CerrarSesion()
+        {
+            Session.Abandon();
+        }
+
         string RegistrarUsuario(Usuario reg)
         {
             string mensaje = "";
@@ -72,7 +115,7 @@ namespace Mundo_Tecnologico.Controllers
                     cmd.Parameters.AddWithValue("@nom", reg.nombre);
                     cmd.Parameters.AddWithValue("@ape", reg.apellidos);
                     cmd.Parameters.AddWithValue("@correo", reg.correo);
-                    cmd.Parameters.AddWithValue("@clave", reg.GetSHA256(reg.clave));
+                    cmd.Parameters.AddWithValue("@clave", Usuario.GetSHA256(reg.clave));
                     cmd.Parameters.AddWithValue("@estado", reg.estado);
                     cmd.Parameters.AddWithValue("@cod_tip_usu", reg.codigoTipoUsuario);
 
@@ -178,6 +221,7 @@ namespace Mundo_Tecnologico.Controllers
             return RedirectToAction("Listado");
 
         }
+        
         public ActionResult Editar(string codigo = null)
         {
             Usuario reg = Buscar(codigo);
@@ -190,10 +234,31 @@ namespace Mundo_Tecnologico.Controllers
             TempData["mensaje"] = EditarUsuario(reg);
             return RedirectToAction("Listado");
         }
+        
         public ActionResult Eliminar(string codigo = null)
         {
             TempData["mensaje"] = EliminarUsuario(codigo);
             return RedirectToAction("Listado");
+        }
+
+        public ActionResult Validar(string correo, string clave)
+        {
+            Usuario reg = ValidarAcceso(correo, clave);
+            if (reg != null)
+            {
+                IniciarSesion(reg);
+                return RedirectToAction("Index", "Home");
+            } else
+            {
+                TempData["mensaje"] = "Credenciales Incorrectas o Usuario eliminado";
+                return RedirectToAction("Login", "Home");
+            }
+        }
+
+        public ActionResult Cerrar()
+        {
+            CerrarSesion();
+            return RedirectToAction("Login", "Home");
         }
     }
 }

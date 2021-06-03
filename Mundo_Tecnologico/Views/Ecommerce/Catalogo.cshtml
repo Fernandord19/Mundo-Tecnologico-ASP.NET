@@ -9,11 +9,11 @@
     <div class="form-group  pr-3 pl-3 row d-flex justify-content-around flex-wrap">
         <label class="col-form-label mt-1">Filtrar productos por: </label>
         <select class="custom-select col-sm-3 mt-1" name="criterio">
-            <option value="Nombre">Nombre</option>
-            <option value="Categoria">Categoria</option>
-            <option value="Marca">Marca</option>
+            <option value="Nombre" @(ViewBag.criterio == "Nombre" ? "selected": "")>Nombre</option>
+            <option value="Categoria" @(ViewBag.criterio == "Categoria" ? "selected": "")>Categoria</option>
+            <option value="Marca" @(ViewBag.criterio == "Marca" ? "selected": "")>Marca</option>
         </select>
-        <input class="form-control col-sm-3 mt-1" name="filtro" placeholder="Ingrese el valor a filtrar"/>
+        <input class="form-control col-sm-3 mt-1" name="filtro" placeholder="Ingrese el valor a filtrar" value="@ViewBag.filtro"/>
         <button type="submit" class="btn btn-secondary col-sm-3 mt-1">Filtrar</button>
     </div>
 </form>
@@ -22,19 +22,25 @@
 
     <table class="w-100">
 
-        <tr class="text-center w-100 d-flex justify-content-around flex-wrap">
+        <tr class="text-center w-100 d-flex justify-content-center flex-wrap">
             @foreach (var item in Model)
             {
-                <td width="32%" class="detalle-catalogo m-1">
+                <td width="30%" class="detalle-catalogo m-2">
                     <table class="w-100 producto">
                         <tr class="cabecera-catalogo"><td>@item.nombre.ToUpper()</td></tr>
                         <tr><td><img src="@Url.Content(item.foto)" class="catalogo" /></td></tr>
                         <tr><td>Precio Unitario: <strong>S/. @item.precio</strong></td></tr>
                         <tr><td>Stock: <strong>@item.stock unidades</strong></td></tr>
-                        <tr><td>@Html.ActionLink("Ver Producto", "Detalle", "Ecommerce", new { codigo = item.codigo}, new { @class = "btn btn-primary"})</td></tr>
+                        <tr><td>@Html.ActionLink("Ver Producto", "Detalle", "Ecommerce", new { codigo = item.codigo }, new { @class = "btn btn-primary" })</td></tr>
                         <tr><td><br /></td></tr>
                     </table>
                 </td>
+            }
+            @if (Model.Count() == 0)
+            {
+                <div class="alert alert-danger text-center" role="alert">
+                    <strong> No hay productos que coincidan con la búsqueda </strong>
+                </div>
             }
         </tr>
 

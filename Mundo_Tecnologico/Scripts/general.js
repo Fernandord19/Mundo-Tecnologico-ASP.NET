@@ -243,3 +243,40 @@ $(function () {
         }
     });
 });
+
+$(function () {
+    $('#formularioLogin').validate({
+        rules: {
+            correo: {
+                required: true,
+                email: true
+            },
+            clave: {
+                required: true,
+                minlength: 5,
+            }
+
+        },
+        messages: {
+            correo: {
+                required: "Este campo es obligatorio",
+                email: "Debe ingresar un correo electrónico válido",
+            },
+            clave: {
+                required: "Este campo es obligatorio",
+                minlength: "La clave debe tener mínimo 5 caracteres",
+            }
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+    });
+});

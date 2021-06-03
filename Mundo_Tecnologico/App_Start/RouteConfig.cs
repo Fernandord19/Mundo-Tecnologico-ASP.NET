@@ -16,7 +16,7 @@ namespace Mundo_Tecnologico
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{codigo}",
-                defaults: new { controller = "Home", action = "Index", codigo = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", codigo = UrlParameter.Optional}
             );
         }
     }

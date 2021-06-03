@@ -18,12 +18,6 @@ namespace Mundo_Tecnologico.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Login(string correo)
-        {
-            return RedirectToAction("Index", "Home");
-        }
-
         public ActionResult Nosotros()
         {
             return View();

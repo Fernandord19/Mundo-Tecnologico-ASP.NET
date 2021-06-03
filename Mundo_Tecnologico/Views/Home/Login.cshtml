@@ -11,31 +11,42 @@
         </div>
     </div>
     <div class="card-body">
-        <form action="@Url.Action("Login", "Home")" method="post">
+        <form action="@Url.Action("Validar", "Usuarios")" id="formularioLogin" method="post">
+
+            @if (TempData["mensaje"] != null)
+            {
+                <div class="alert alert-danger text-center" role="alert">
+                    <strong> @TempData["mensaje"] </strong>
+                </div>
+            }
 
             <div class="col-auto">
-                <label class="sr-only" for="inlineFormInputGroup"></label>
-                <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <i class="fas fa-envelope"></i>
+                <div class="form-group col-md-12">
+                    <label class="sr-only" for="inlineFormInputGroup"></label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fas fa-envelope"></i>
+                            </div>
                         </div>
+                        <input type="email" class="form-control" id="correo"
+                               placeholder="Ingrese su correo" name="correo">
                     </div>
-                    <input type="email" class="form-control" id="correo"
-                           placeholder="Ingrese su correo" name="correo">
                 </div>
             </div>
 
             <div class="col-auto">
-                <label class="sr-only" for="inlineFormInputGroup"></label>
-                <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <i class="fas fa-lock"></i>
+                <div class="form-group col-md-12">
+                    <label class="sr-only" for="inlineFormInputGroup"></label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fas fa-lock"></i>
+                            </div>
                         </div>
+                        <input type="password" class="form-control" id="clave"
+                               placeholder="Ingrese su clave" name="clave">
                     </div>
-                    <input type="password" class="form-control" id="clave"
-                           placeholder="Ingrese su clave" name="clave">
                 </div>
             </div>
 
@@ -43,8 +54,10 @@
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
                 </button>
+                <br />
+                <a>Registrate Ahora</a>
             </div>
-            
+
         </form>
     </div>
 </div>

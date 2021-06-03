@@ -1,6 +1,13 @@
 ﻿<!DOCTYPE html>
+@using Mundo_Tecnologico.Models
 @{
+    Usuario reg = Session["usuario"] as Usuario;
+    if (Session["carrito"] == null)
+    {
+        Session["carrito"] = new List<Producto>();
+    }
 
+    List<Producto> carrito = Session["carrito"] as List<Producto>;
 }
 <html lang="es">
 <head>
@@ -44,28 +51,35 @@
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Nosotros", "Home")">Nosotros</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mantenimiento</a>
 
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="@Url.Action("Listado", "Productos")">Productos</a>
-                            <a class="dropdown-item" href="@Url.Action("Listado", "Usuarios")">Usuarios</a>
-                            <a class="dropdown-item"
-                               href="@Url.Action("Listado", "Categorias")">Categorías</a>
-                            <a class="dropdown-item" href="@Url.Action("Listado", "Marcas")">Marcas</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reportes</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Productos</a>
-                            <a class="dropdown-item" href="#">Ventas</a>
-                            <a class="dropdown-item" href="#">Usuarios</a>
-                            <a class="dropdown-item" href="#">Clientes</a>
-                        </div>
-                    </li>
+                    @if (reg != null)
+                    {
+                        if (reg.tipoUsuario == "Administrador")
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mantenimiento</a>
+
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="@Url.Action("Listado", "Productos")">Productos</a>
+                                    <a class="dropdown-item" href="@Url.Action("Listado", "Usuarios")">Usuarios</a>
+                                    <a class="dropdown-item"
+                                       href="@Url.Action("Listado", "Categorias")">Categorías</a>
+                                    <a class="dropdown-item" href="@Url.Action("Listado", "Marcas")">Marcas</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reportes</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Productos</a>
+                                    <a class="dropdown-item" href="#">Ventas</a>
+                                    <a class="dropdown-item" href="#">Usuarios</a>
+                                    <a class="dropdown-item" href="#">Clientes</a>
+                                </div>
+                            </li>
+                        }
+                    }
 
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -74,21 +88,22 @@
                         <li class="nav-item dropdown mr-auto">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-user"></i> Nombre Completo del Usuario
+                                <i class="fas fa-user"></i> @(reg.nombre + " " + reg.apellidos)
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Mi Cuenta</a>
-                                <a class="dropdown-item" href="ServletUsuario?operacion=cerrarSesion">Cerrar Sesión</a>
+                                @Html.ActionLink("Cerrar Sesión", "Cerrar", "Usuarios", null, new { @class = "dropdown-item" })
                             </div>
                         </li>
                     }
                     else
                     {
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Login", "Home")">Iniciar Sesión</a>
+                            <a class="nav-link" href="@Url.Action("Login", "Home")"><i class="fas fa-user"></i> Iniciar Sesión</a>
                         </li>
                     }
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Carrito", "Ecommerce")"><i class="fas fa-cart-plus"></i>Carrito</a>
+                    </li>
                 </ul>
             </div>
         </nav>

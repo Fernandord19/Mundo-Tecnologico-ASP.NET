@@ -20,7 +20,7 @@ namespace Mundo_Tecnologico.Models
         // Atributos para las relaciones foráneas
         public string tipoUsuario { get; set; }
 
-        public string GetSHA256(string str)
+        public static string GetSHA256(string str)
         {
             SHA256 sha256 = SHA256Managed.Create();
             ASCIIEncoding encoding = new ASCIIEncoding();

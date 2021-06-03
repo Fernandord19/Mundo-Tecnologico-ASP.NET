@@ -67,6 +67,8 @@ namespace Mundo_Tecnologico.Controllers
         public ActionResult Catalogo(string criterio = "nombre", string filtro = "")
         {
             IEnumerable<Producto> listaProductos = FiltrarProductos(criterio, filtro);
+            ViewBag.criterio = criterio;
+            ViewBag.filtro = filtro;
             return View(listaProductos);
         }
 
