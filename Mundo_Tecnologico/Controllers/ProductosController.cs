@@ -320,5 +320,7 @@ namespace Mundo_Tecnologico.Controllers
             TempData["mensaje"] = EliminarProducto(codigo);
             return RedirectToAction("Listado");
         }
+
+        
     }
 }

@@ -1,5 +1,11 @@
 ﻿<!DOCTYPE html>
-
+@using Mundo_Tecnologico.Models
+@{
+    if (Session["carrito"] == null)
+    {
+        Session["carrito"] = new List<Item>();
+    }
+}
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />

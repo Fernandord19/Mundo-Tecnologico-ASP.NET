@@ -1,0 +1,45 @@
+﻿@model Mundo_Tecnologico.Models.Usuario
+
+@{
+    ViewBag.Title = "Restablecer Clave | Mundo Tecnológico";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+
+<div class="container-fluid contenedor_mantenimiento">
+    <div class="col-md-4 m-auto formulario_mantenimiento">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title text-center">Restablecer Clave</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form id="formularioUsuarioRegistro" action="@Url.Action("Restablecer")" method="post">
+                @Html.Hidden("codigo", ViewBag.codigo as string)
+                <div class="card-body">
+                    <div class="row m-auto col-md-12">
+
+                        <div class="form-group col-md-9 m-auto">
+                            <label for="nombre">Nueva Clave</label>
+                            <input type="password" class="form-control" id="clave" name="clave" placeholder="Introduzca la nueva clave del usuario">
+                        </div>
+
+                    </div>
+
+                    <div class="row m-auto  col-md-12">
+                        <div class="form-group col-md-9 m-auto">
+                            <label for="apellidos">Confirmar Clave</label>
+                            <input type="password" class="form-control" id="nuevaClave" name="nuevaClave" placeholder="Introduzca la nueva contraseña otra vez">
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer mt-4 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-success mr-5">Guardar Cambios</button>
+                        <a href="@Url.Action("Listado", "Usuarios")" class="btn btn-secondary">Volver al Listado</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+

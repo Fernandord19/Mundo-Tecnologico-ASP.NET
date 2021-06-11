@@ -31,21 +31,21 @@
                         <tr><td><img src="@Url.Content(item.foto)" class="catalogo" /></td></tr>
                         <tr><td>Precio Unitario: <strong>S/. @item.precio</strong></td></tr>
                         <tr><td>Stock: <strong>@item.stock unidades</strong></td></tr>
-                        <tr><td>@Html.ActionLink("Ver Producto", "Detalle", "Ecommerce", new { codigo = item.codigo }, new { @class = "btn btn-primary" })</td></tr>
+                        <tr><td>@Html.ActionLink("Ver Producto", "DetalleAgregar", "Ecommerce", new { codigo = item.codigo }, new { @class = "btn btn-primary" })</td></tr>
                         <tr><td><br /></td></tr>
                     </table>
                 </td>
             }
-            @if (Model.Count() == 0)
-            {
-                <div class="alert alert-danger text-center" role="alert">
-                    <strong> No hay productos que coincidan con la búsqueda </strong>
-                </div>
-            }
+
         </tr>
 
     </table>
 
-    
+    @if (Model.Count() == 0)
+    {
+        <div class="alert alert-danger text-center" role="alert">
+            <strong> No hay productos que coincidan con la búsqueda </strong>
+        </div>
+    }
 
 </div>

@@ -130,6 +130,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Categoria.cs" />
+    <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Marca.cs" />
     <Compile Include="Models\Producto.cs" />
     <Compile Include="Models\Usuario.cs" />
@@ -238,7 +239,11 @@
     <Content Include="Views\Ecommerce\Catalogo.cshtml" />
     <Content Include="Views\Usuarios\Listado.cshtml" />
     <Content Include="Views\Usuarios\Registrar.cshtml" />
-    <Content Include="Views\Ecommerce\Detalle.cshtml" />
+    <Content Include="Views\Ecommerce\DetalleAgregar.cshtml" />
+    <Content Include="Views\Ecommerce\Carrito.cshtml" />
+    <Content Include="Views\Usuarios\Editar.cshtml" />
+    <Content Include="Views\Usuarios\Detalle.cshtml" />
+    <Content Include="Views\Usuarios\Restablecer.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

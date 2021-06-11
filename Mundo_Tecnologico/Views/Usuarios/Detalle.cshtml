@@ -1,0 +1,90 @@
+﻿@model Mundo_Tecnologico.Models.Usuario
+
+@{
+    ViewBag.Title = "Detalle Usuario | Mundo Tecnológico";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+
+<div class="contenedor_mantenimiento col-md-6 m-auto">
+    <div class="card card-primary">
+
+        <div class="card-header text-center">
+            <h2 class="">Detalle del Usuario</h2>
+        </div>
+
+        <div class="card-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    Código
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.codigo)
+                </dd>
+
+                <dt>
+                    Nombre(s)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.nombre)
+                </dd>
+
+                <dt>
+                    Apellido(s)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.apellidos)
+                </dd>
+
+                <dt>
+                    Documento Identidad
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.documento)
+                </dd>
+
+                <dt>
+                    Celular
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.celular)
+                </dd>
+
+                <dt>
+                    Correo
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.correo)
+                </dd>
+
+
+                <dt>
+                    Tipo Usuario
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.tipoUsuario)
+                </dd>
+
+                <dt>
+                    Estado
+                </dt>
+
+                <dd>
+                    @(Model.estado == 1 ? "Activo" : "Eliminado")
+                </dd>
+
+            </dl>
+            <div class="card-footer d-flex justify-content-center">
+                <a href="@Url.Action("Editar", "Usuarios", new { codigo = Model.codigo})" class="btn btn-primary mr-5 col-sm-4">Editar Usuario</a>
+                <a href="@Url.Action("Listado", "Usuarios")" class="btn btn-secondary col-sm-4">Volver al Listado</a>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -53,7 +53,7 @@ namespace Mundo_Tecnologico.Controllers
 
         Producto Buscar(string codigo)
         {
-            if(codigo != null)
+            if (codigo != null)
             {
                 return FiltrarProductos("nombre", "").Where(p => p.codigo == codigo).FirstOrDefault();
             }
@@ -61,7 +61,7 @@ namespace Mundo_Tecnologico.Controllers
             {
                 return null;
             }
-            
+
         }
 
         public ActionResult Catalogo(string criterio = "nombre", string filtro = "")
@@ -72,10 +72,48 @@ namespace Mundo_Tecnologico.Controllers
             return View(listaProductos);
         }
 
-        public ActionResult Detalle(string codigo = null)
+        public ActionResult DetalleAgregar(string codigo = null)
         {
             Producto reg = Buscar(codigo);
             return View(reg);
+        }
+
+        [HttpPost]
+        public ActionResult AgregarCarrito(string codigo, Int16 stock, int cantidad)
+        {
+            if(cantidad > stock)
+            {
+                TempData["mensaje"] = "Ingrese Una cantidad menor al stock";
+                return RedirectToAction("DetalleAgregar", new { codigo = codigo });
+            }
+
+            Producto reg = Buscar(codigo);
+            Item it = new Item()
+            {
+                codigo = reg.codigo,
+                nombre = reg.nombre,
+                precio = reg.precio,
+                cantidad = cantidad
+            };
+
+            List<Item> temporal = (List<Item>)Session["carrito"];
+            temporal.Add(it);
+            TempData["mensaje"] = "Producto agregado al carrito";
+            return RedirectToAction("DetalleAgregar", new { codigo = codigo });
+        }
+
+        public ActionResult Carrito()
+        {
+            if (Session["usuario"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else
+            {
+                List<Item> productos = Session["carrito"] as List<Item>;
+                return View(productos);
+            }
+            
         }
     }
 }

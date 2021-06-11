@@ -1,5 +1,5 @@
 ﻿@model Mundo_Tecnologico.Models.Producto
-
+@using Mundo_Tecnologico.Models
 @{
     ViewBag.Title = "Detalle del Producto | Mundo Tecnológico";
     Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
@@ -8,6 +8,14 @@
 <!-- Default box -->
 <div class="card card-solid col-md-9 detalle-producto">
     <div class="card-body">
+
+        @if (TempData["mensaje"] != null)
+        {
+            <div class="alert alert-info text-center" role="alert">
+                <strong> @TempData["mensaje"] </strong>
+            </div>
+        }
+
         <div class="row d-flex flex-wrap">
             <div class="col-12 col-sm-5">
                 <div class="col-12">
@@ -15,6 +23,7 @@
                 </div>
             </div>
             <div class="col-12 col-sm-7">
+
                 <h3 class="my-3">@Model.nombre.ToUpper()</h3>
                 <p>@Model.descripcion</p>
 
@@ -24,10 +33,15 @@
                     <h2 class="mb-0">
                         S/. @Model.precio
                     </h2>
+
+                    <span> @Model.stock unidades disponibles</span>
                 </div>
 
-                <form action="@Url.Action("Detalle", "Ecommerce", new { codigo = Model.codigo})">
+                <form action="@Url.Action("AgregarCarrito", "Ecommerce")" method="post">
                     <div class="mt-4 row">
+
+                        @Html.Hidden("codigo", Model.codigo)
+                        @Html.Hidden("stock", Model.stock)
 
                         <div class="col-md-4 mt-1">
                             <div class="input-group number-spinner">

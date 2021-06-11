@@ -12,10 +12,13 @@ namespace Mundo_Tecnologico.Models
         public string codigo { get; set; }
         public string nombre { get; set; }
         public string apellidos { get; set; }
+        public string documento { get; set; }
+        public string celular { get; set; }
         public string correo { get; set; }
         public string clave { get; set; }
         public byte estado { get; set; }
         public string codigoTipoUsuario { get; set; }
+
 
         // Atributos para las relaciones foráneas
         public string tipoUsuario { get; set; }
@@ -29,6 +32,11 @@ namespace Mundo_Tecnologico.Models
             stream = sha256.ComputeHash(encoding.GetBytes(str));
             for (int i = 0; i < stream.Length; i++) sb.AppendFormat("{0:x2}", stream[i]);
             return sb.ToString();
+        }
+
+        public static string claveDefecto()
+        {
+            return "mundo" + DateTime.Now.ToString("yyyy");
         }
 
     }

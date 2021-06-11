@@ -11,7 +11,7 @@ $('.custom-file-input').on('change', function (event) {
     $(inputFile).parent()
         .find('.custom-file-label')
         .html(inputFile.files[0].name);
-}); 
+});
 
 $(document).on('click', '.number-spinner button', function () {
     var btn = $(this),
@@ -33,7 +33,14 @@ $(document).on('click', '.number-spinner button', function () {
 $(function () {
     $('#dataTable').DataTable({
         "order": [[0, "asc"]],
-        "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]]
+        "lengthMenu": [[10, 20, 30, -1], [10, 20, 30, "All"]]
+    });
+});
+
+$(function () {
+    $('#tablaDetalle').DataTable({
+        "order": [[0, "asc"]],
+        "lengthMenu": [[10, 20, 30, -1], [10, 20, 30, "All"]]
     });
 });
 
@@ -52,7 +59,7 @@ $(function () {
             },
             precio: {
                 required: true,
-                number:true,
+                number: true,
                 min: 1
             },
             stock: {
@@ -129,7 +136,7 @@ function ConfirmarDelete(e, codigo) {
                 showConfirmButton: false,
                 timer: 1500
             })
-            setTimeout(function () { window.location.href = 'Eliminar/' + codigo ; }, 1500);
+            setTimeout(function () { window.location.href = 'Eliminar/' + codigo; }, 1500);
         }
     })
 }
@@ -158,15 +165,17 @@ $(function () {
             stock: {
                 required: true,
                 number: true,
-                min: 0
+                min: 0,
             },
-            marca: {
+            codigoMarca: {
                 required: true,
             },
-            categoria: {
+            codigoCategoria: {
+                required: true,
+            },
+            estado: {
                 required: true,
             }
-
         },
         messages: {
             foto: {
@@ -192,11 +201,14 @@ $(function () {
                 min: "El stock debe ser mayor o igual que 0",
                 number: "Debe ingresar un número entero"
             },
-            marca: {
-                required: "Este campo es obligatorio",
+            codigoMarca: {
+                required: "Este campo es obligatorio"
             },
-            categoria: {
-                required: "Este campo es obligatorio",
+            codigoCategoria: {
+                required: "Este campo es obligatorio"
+            },
+            estado: {
+                required: "Este campo es obligatorio"
             },
         },
         errorElement: 'span',
@@ -220,14 +232,19 @@ $(function () {
                 required: true,
                 minlength: 2,
                 maxlength: 30
+            },
+            estado: {
+                required: true,
             }
-
         },
         messages: {
             nombre: {
                 required: "Este campo es obligatorio",
                 minlength: "El nombre debe tener mínimo 2 caracteres",
                 maxlength: "El nombre debe tener máximo 30 caracteres"
+            },
+            estado: {
+                required: "Este campo es obligatorio",
             },
         },
         errorElement: 'span',
