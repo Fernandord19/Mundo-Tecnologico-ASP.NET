@@ -9,11 +9,11 @@
     <div class="form-group  pr-3 pl-3 row d-flex justify-content-around flex-wrap">
         <label class="col-form-label mt-1">Filtrar productos por: </label>
         <select class="custom-select col-sm-3 mt-1" name="criterio">
-            <option value="Nombre" @(ViewBag.criterio == "Nombre" ? "selected": "")>Nombre</option>
-            <option value="Categoria" @(ViewBag.criterio == "Categoria" ? "selected": "")>Categoria</option>
-            <option value="Marca" @(ViewBag.criterio == "Marca" ? "selected": "")>Marca</option>
+            <option value="Nombre" @(ViewBag.criterio == "Nombre" ? "selected" : "")>Nombre</option>
+            <option value="Categoria" @(ViewBag.criterio == "Categoria" ? "selected" : "")>Categoria</option>
+            <option value="Marca" @(ViewBag.criterio == "Marca" ? "selected" : "")>Marca</option>
         </select>
-        <input class="form-control col-sm-3 mt-1" name="filtro" placeholder="Ingrese el valor a filtrar" value="@ViewBag.filtro"/>
+        <input class="form-control col-sm-3 mt-1" name="filtro" placeholder="Ingrese el valor a filtrar" value="@ViewBag.filtro" />
         <button type="submit" class="btn btn-secondary col-sm-3 mt-1">Filtrar</button>
     </div>
 </form>
@@ -40,6 +40,24 @@
         </tr>
 
     </table>
+    @if (Model.Count() > 0) // Valida si hay resultados
+    {
+        <div class="text-center">
+
+
+
+            <div>
+                @Html.ActionLink("|<", "Catalogo", new { criterio = ViewBag.criterio, filtro = ViewBag.filtro, f = "inicio" }, new { @class = "btn btn-secondary" })
+                @Html.ActionLink("<", "Catalogo", new { pagInicio = (int)ViewBag.pagInicio, criterio = ViewBag.criterio, filtro = ViewBag.filtro, f = "izquierda" }, new { @class = "btn btn-secondary" })
+                @Html.Label("Página " + ((int)ViewBag.pagInicio + 1 ).ToString() + " de " + ((int)ViewBag.numPaginas).ToString(), null, new { @class = "btn btn-primary mt-2" })
+                @Html.ActionLink(">", "Catalogo", new { pagInicio = (int)ViewBag.pagInicio, criterio = ViewBag.criterio, filtro = ViewBag.filtro, f = "derecha" }, new { @class = "btn btn-secondary" })
+                @Html.ActionLink(">|", "Catalogo", new { criterio = ViewBag.criterio, filtro = ViewBag.filtro, f = "fin" }, new { @class = "btn btn-secondary" })
+            </div>
+
+
+
+        </div>
+    }
 
     @if (Model.Count() == 0)
     {
@@ -48,4 +66,4 @@
         </div>
     }
 
-</div>
+</div>            }

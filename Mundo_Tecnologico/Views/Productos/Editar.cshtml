@@ -3,8 +3,6 @@
 @{
     ViewBag.Title = "Editar Producto | Mundo Tecnológico";
     Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
-    IEnumerable<Marca> marcas = ViewBag.marcas as IEnumerable<Marca>;
-    IEnumerable<Categoria> categorias = ViewBag.categorias as IEnumerable<Categoria>;
 }
 
 <div class="container-fluid contenedor_mantenimiento">
@@ -75,7 +73,7 @@
                             <label for="marca">Marca</label>
                             <select class="custom-select" id="marca" name="codigoMarca">
                                 <option disabled>Seleccione</option>
-                                @foreach (var item in marcas)
+                                @foreach (var item in (IEnumerable<Marca>)ViewBag.marcas)
                                 {
                                     <option value="@item.codigo" @(item.nombre == Model.nombreMarca ? "selected" : "")>@item.nombre</option>
                                 }
@@ -86,7 +84,7 @@
                             <label for="categoria">Categoría</label>
                             <select class="custom-select" id="categoria" name="codigoCategoria">
                                 <option disabled>Seleccione</option>
-                                @foreach (var item in categorias)
+                                @foreach (var item in (IEnumerable<Categoria>)ViewBag.categorias)
                                 {
                                     <option value="@item.codigo" @(item.nombre == Model.nombreCategoria ? "selected" : "")>@item.nombre</option>
                                 }

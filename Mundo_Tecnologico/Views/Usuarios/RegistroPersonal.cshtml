@@ -1,0 +1,91 @@
+﻿@model Mundo_Tecnologico.Models.Usuario
+
+@{
+    ViewBag.Title = "Registro de Usuario | Mundo Tecnológico";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid formularioRegistro">
+    <div class="col-md-4 m-auto formulario_mantenimiento">
+  
+        <div class="card card-primary">
+            <div class="card-header">
+                @if (TempData["mensaje"] != null)
+                {
+                    <div class="alert alert-info text-center" role="alert">
+                        <strong> @TempData["mensaje"] </strong>
+                    </div>
+                }
+                <h3 class="card-title text-center">Registro de Usuario</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form id="formularioUsuario" action="@Url.Action("RegistroPersonal")" method="post" autocomplete="off">
+                <div class="card-body">
+                    <div class="row m-auto  col-md-12">
+                        <div class="form-group col-md-12">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre del usuario">
+                        </div>
+
+                    </div>
+
+                    <div class="row m-auto  col-md-12">
+                        <div class="form-group col-md-12">
+                            <label for="apellidos">Apellidos</label>
+                            <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Ingrese los apellidos del usuario">
+                        </div>
+                    </div>
+
+                    <div class="row m-auto  col-md-12">
+
+                        <div class="form-group col-md-12">
+                            <label for="correo">Documento de Identidad</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="documento" id="documento" placeholder="Ingrese el documento del usuario">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row m-auto  col-md-12">
+
+                        <div class="form-group col-md-12">
+                            <label for="clave">Celular</label>
+                            <input type="text" class="form-control" id="celular" name="celular" placeholder="Ingrese el celular del usuario">
+                        </div>
+
+                    </div>
+
+                    <div class="row m-auto  col-md-12">
+
+                        <div class="form-group col-md-12">
+                            <label for="correo">Correo</label>
+                            <div class="input-group">
+                                <input type="email" class="form-control" name="correo" id="correo" placeholder="Ingrese el correo del usuario">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row m-auto  col-md-12">
+
+                        <div class="form-group col-md-12">
+                            <label for="clave">Clave</label>
+                            <input type="password" class="form-control" id="clave" name="clave" placeholder="Ingrese una contraseña">
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success mr-5">Registrarme</button>
+                    <a href="@Url.Action("Login", "Home")" class="btn btn-secondary">Iniciar Sesion</a>
+                </div>
+            </form>
+        </div>
+        <!-- /.card -->
+    </div>
+    <div class="col-md-6">
+
+    </div>
+</div>

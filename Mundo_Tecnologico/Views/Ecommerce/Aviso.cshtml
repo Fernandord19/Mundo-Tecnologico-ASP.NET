@@ -1,0 +1,15 @@
+﻿@using Mundo_Tecnologico.Models
+@{
+    ViewBag.Title = "Aviso | Mundo Tecnológico";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+
+<div class="container text-center contenedor_mantenimiento">
+    <h1>Operación Exitosa</h1>
+    <h2>@ViewBag.mensaje</h2>
+    <h3>Muchas gracias por tu compra, @((Session["usuario"] as Usuario).nombre)</h3>
+    <h3>Nos comunicaremos contigo muy pronto</h3>
+</div>
+
+
+

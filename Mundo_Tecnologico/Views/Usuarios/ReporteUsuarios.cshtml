@@ -1,0 +1,46 @@
+﻿@using ReportViewerForMvc
+@{
+    ViewBag.Title = "Reporte de Usuarios | Mundo Tecnológico";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+
+<style>
+    #frmReporte{
+        width: 100%;
+        height: 720px;
+    }
+</style>
+
+<div class="col-md-4 m-auto contenedor_mantenimiento">
+    <div class="row form-group">
+        <label for="estado" class="col-form-label">Estado</label>
+        <div class="col-sm-5 ">
+            <select class="custom-select" id="estado" name="estado">
+                <option selected value="0">Todos</option>
+                <option value="1">Activo</option>
+                <option value="2">Eliminado</option>
+            </select>
+        </div>
+        <button class="btn btn-primary col-sm-6" onclick="verReporte()">
+            Ver Reporte
+        </button>
+    </div>
+    
+</div>
+
+<div class="m-auto col-md-12">
+
+    <iframe id="frmReporte" frameborder="0" scrolling="no">
+    </iframe>
+
+</div>
+
+<script>
+    function verReporte() {
+        var estado = document.getElementById("estado").value;
+        document.getElementById("frmReporte").setAttribute("src", "/Usuarios/MostrarReporte?estado=" + estado)
+    }
+</script>
+
+
+

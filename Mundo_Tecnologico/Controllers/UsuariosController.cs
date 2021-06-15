@@ -8,6 +8,10 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
 
+using CrystalDecisions.CrystalReports.Engine;
+using System.IO;
+using CrystalDecisions.Shared;
+
 namespace Mundo_Tecnologico.Controllers
 {
     public class UsuariosController : Controller
@@ -38,7 +42,6 @@ namespace Mundo_Tecnologico.Controllers
                         correo = dr.GetString(5),
                         estado = dr.GetByte(6),
                         tipoUsuario = dr.GetString(7),
-                        
                     };
 
                     lista.Add(reg);
@@ -47,6 +50,11 @@ namespace Mundo_Tecnologico.Controllers
             }
 
             return lista;
+        }
+
+        IEnumerable<Usuario> ListarUsuariosEstado(int estado)
+        {
+            return ListarUsuarios().Where(u => u.estado == estado);
         }
 
         Usuario Buscar(string codigo)
@@ -104,7 +112,7 @@ namespace Mundo_Tecnologico.Controllers
             Session.Abandon();
         }
 
-        string RegistrarUsuario(Usuario reg)
+        string RegistrarUsuario(Usuario reg, int tipoRegistro)
         {
             string mensaje = "";
 
@@ -121,8 +129,17 @@ namespace Mundo_Tecnologico.Controllers
                     cmd.Parameters.AddWithValue("@documento", reg.documento);
                     cmd.Parameters.AddWithValue("@celular", reg.celular);
                     cmd.Parameters.AddWithValue("@clave", Usuario.GetSHA256(reg.clave));
-                    cmd.Parameters.AddWithValue("@estado", reg.estado);
-                    cmd.Parameters.AddWithValue("@cod_tip_usu", reg.codigoTipoUsuario);
+                    
+                    if(tipoRegistro == 1)
+                    {
+                        cmd.Parameters.AddWithValue("@cod_tip_usu", reg.codigoTipoUsuario);
+                        cmd.Parameters.AddWithValue("@estado", reg.estado);
+                    } else
+                    {
+                        cmd.Parameters.AddWithValue("@cod_tip_usu", "TPU0002");
+                        cmd.Parameters.AddWithValue("@estado", 1);
+                    }
+                    
 
                     con.Open();
                     int i = cmd.ExecuteNonQuery();
@@ -254,9 +271,8 @@ namespace Mundo_Tecnologico.Controllers
         [HttpPost]
         public ActionResult Registrar(Usuario reg)
         {
-            TempData["mensaje"] = RegistrarUsuario(reg);
+            TempData["mensaje"] = RegistrarUsuario(reg, 1);
             return RedirectToAction("Listado");
-
         }
         
         public ActionResult Editar(string codigo = null)
@@ -271,6 +287,19 @@ namespace Mundo_Tecnologico.Controllers
             TempData["mensaje"] = EditarUsuario(reg);
             return RedirectToAction("Listado");
         }
+
+        public ActionResult RegistroPersonal()
+        {
+            return View(new Usuario());
+        }
+
+        [HttpPost]
+        public ActionResult RegistroPersonal(Usuario reg)
+        {
+            TempData["mensaje"] = RegistrarUsuario(reg, 2);
+            return View();
+        }
+
 
         public ActionResult Detalle(string codigo = "")
         {
@@ -291,19 +320,20 @@ namespace Mundo_Tecnologico.Controllers
             return RedirectToAction("Listado");
         }
 
+        
         public ActionResult Eliminar(string codigo = null)
         {
             TempData["mensaje"] = EliminarUsuario(codigo);
             return RedirectToAction("Listado");
         }
 
-        public ActionResult Validar(string correo_login, string clave_login)
+        public ActionResult Validar(string correo, string clave)
         {
-            Usuario reg = ValidarAcceso(correo_login, clave_login);
+            Usuario reg = ValidarAcceso(correo, clave);
             if (reg != null)
             {
                 IniciarSesion(reg);
-                return RedirectToAction("Carrito", "Ecommerce");
+                return RedirectToAction("Index", "Home");
             } else
             {
                 TempData["mensaje"] = "Credenciales Incorrectas o Usuario eliminado";
@@ -315,6 +345,42 @@ namespace Mundo_Tecnologico.Controllers
         {
             CerrarSesion();
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult ReporteUsuarios()
+        {
+            return View();
+        }
+
+        public void MostrarReporte(int estado)
+        {
+            try
+            {
+                IEnumerable<Usuario> listaUsuarios = new List<Usuario>();
+                if (estado != 0)
+                {
+                    listaUsuarios = ListarUsuariosEstado(estado);
+                }
+                else { 
+                    listaUsuarios = ListarUsuarios();
+                }
+
+                ReportDocument rd = new ReportDocument();
+                rd.Load(Path.Combine(Server.MapPath("~/Reportes"), "ReporteUsuarios.rpt"));
+                rd.SetDataSource(listaUsuarios);
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                    
+                rd.ExportToHttpResponse(ExportFormatType.PortableDocFormat, System.Web.HttpContext.Current.Response, false, "usuario");
+                
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.ToString());
+            }
         }
     }
 }

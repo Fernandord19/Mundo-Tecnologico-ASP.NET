@@ -45,13 +45,10 @@
                         <a class="nav-link" href="@Url.Action("Index", "Home")">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Catalogo", "Ecommerce")">Catálogo</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Nosotros", "Home")">Nosotros</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Carrito", "Ecommerce")"><i class="fas fa-cart-plus"></i> (@(carrito.Count)) Carrito</a>
+                        <a class="nav-link" href="@Url.Action("Catalogo", "Ecommerce")">Catálogo</a>
                     </li>
 
                     @if (reg != null)
@@ -70,19 +67,25 @@
                                     <a class="dropdown-item" href="@Url.Action("Listado", "Marcas")">Marcas</a>
                                 </div>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("ListadoVentas", "Ecommerce")">Ventas</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reportes</a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="#">Productos</a>
                                     <a class="dropdown-item" href="#">Ventas</a>
-                                    <a class="dropdown-item" href="#">Usuarios</a>
+                                    <a class="dropdown-item" href="@Url.Action("ReporteUsuarios", "Usuarios")">Usuarios</a>
                                 </div>
                             </li>
                         }
                     }
                 </ul>
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Carrito", "Ecommerce")"><i class="fas fa-cart-plus"></i> (@(carrito.Count)) Carrito</a>
+                    </li>
                     @if (Session["usuario"] != null)
                     {
                         <li class="nav-item dropdown mr-auto">
@@ -92,6 +95,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 @Html.ActionLink("Cerrar Sesión", "Cerrar", "Usuarios", null, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Mis Compras", "MisCompras", "Ecommerce", null, new { @class = "dropdown-item" })
                             </div>
                         </li>
                     }
@@ -159,6 +163,11 @@
     <!-- JS -->
     <script src="~/Scripts/general.js"></script>
 
+    <script>
+        function Mostrar() {
+            $("#frmReporte").attr("src", "https://app.powerbi.com/view?r=eyJrIjoiZjI3Zjc0MjQtNGFjNy00ODBjLWI0NmQtNWViYzhiYzM2Y2Q1IiwidCI6ImUxNGZjMDZjLTQzZWQtNDE2MC1hMDg0LWU3NjcxYjcwYjE3OSIsImMiOjR9").load();
+        }
+    </script>
 
 </body>
 </html>

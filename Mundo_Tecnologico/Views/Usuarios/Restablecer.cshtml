@@ -13,14 +13,14 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form id="formularioUsuarioRegistro" action="@Url.Action("Restablecer")" method="post">
+            <form id="formularioUsuario" action="@Url.Action("Restablecer")" method="post">
                 @Html.Hidden("codigo", ViewBag.codigo as string)
                 <div class="card-body">
                     <div class="row m-auto col-md-12">
 
                         <div class="form-group col-md-9 m-auto">
                             <label for="nombre">Nueva Clave</label>
-                            <input type="password" class="form-control" id="clave" name="clave" placeholder="Introduzca la nueva clave del usuario">
+                            <input type="password" class="form-control" id="nuevaClave" name="clave" placeholder="Introduzca la nueva clave del usuario">
                         </div>
 
                     </div>
@@ -28,7 +28,7 @@
                     <div class="row m-auto  col-md-12">
                         <div class="form-group col-md-9 m-auto">
                             <label for="apellidos">Confirmar Clave</label>
-                            <input type="password" class="form-control" id="nuevaClave" name="nuevaClave" placeholder="Introduzca la nueva contraseña otra vez">
+                            <input type="password" class="form-control" id="confirmaClave" name="confirmaClave" placeholder="Introduzca la nueva contraseña otra vez">
                         </div>
                     </div>
                     <!-- /.card-body -->

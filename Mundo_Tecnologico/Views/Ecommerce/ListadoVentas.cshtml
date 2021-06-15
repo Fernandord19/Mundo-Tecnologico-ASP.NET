@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Mundo_Tecnologico.Models.Venta>
+
+@{
+    ViewBag.Title = "Listado de Usuarios | Mundo Tecnológico";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+
+<div class="contenedor_mantenimiento col-md-12 m-auto">
+    <div class="card card-primary">
+
+        <div class="card-header text-center">
+            <h2 class="">Listado de Ventas Pendientes y Aprobadas</h2>
+        </div>
+
+        <div class="card-body">
+
+            @if (TempData["mensaje"] != null)
+            {
+                <div class="alert alert-info" role="alert">
+                    <b><span>@TempData["mensaje"]</span></b>
+                </div>
+            }
+
+            <table id="dataTableVenta" class="table table-sm table-hover dt-responsive wrap" style="width:100%">
+                <thead>
+                    <tr>
+                        <th style="width: 7%;">CÓDIGO</th>
+                        <th style="width: 12%;">FECHA - HORA</th>
+                        <th style="width: 7%;">TOTAL</th>
+                        <th style="width: 15%;">DISTRITO</th>
+                        <th style="width: 20%;">DIRECCION</th>
+                        <th style="width: 20%;">REFERENCIA</th>
+                        <th style="width: 15%;">USUARIO</th>
+                        <th style="width: 5%;">CELULAR</th>
+                        <th style="width: 5%;">DOCUMENTO</th>
+                        <th style="width: 13%;">ESTADO</th>
+                        <th style="width: 5%;">OPE.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.codigo</td>
+                            <td>@item.fecha.ToShortDateString() - @item.fecha.ToLongTimeString()</td>
+                            <td>S/. @item.total</td>
+                            <td>@item.distrito</td>
+                            <td>@item.direccion</td>
+                            <td>@item.referencia</td>
+                            <td>@item.usuario</td>
+                            <td>@item.celular</td>
+                            <td>@item.documento</td>
+                            @switch (item.estado)
+                            {
+                                case 1:
+                                    <td>Pendiente</td>
+                                    break;
+                                case 2:
+                                    <td>Aprobada</td>
+                                    break;
+                            }
+                        <td class="text-center">
+
+                            @if (item.estado == 1)
+                            {
+                                <a href="@Url.Action("DetalleVenta", "Ecommerce", new { codigo = item.codigo })" style="color: green"><i class="fas fa-info-circle"></i></a>
+                            }
+
+                            @if (item.estado == 2)
+                            {
+                                <a href="@Url.Action("Editar", "Ecommerce", new { codigo = item.codigo, estado = 3 })" style="color: blue"><i class="fas fa-people-carry"></i></a>
+                            }
+                        </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
