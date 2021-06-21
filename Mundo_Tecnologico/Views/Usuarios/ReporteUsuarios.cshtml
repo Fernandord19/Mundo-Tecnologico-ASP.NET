@@ -1,5 +1,4 @@
-﻿@using ReportViewerForMvc
-@{
+﻿@{
     ViewBag.Title = "Reporte de Usuarios | Mundo Tecnológico";
     Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
 }
@@ -11,21 +10,22 @@
     }
 </style>
 
-<div class="col-md-4 m-auto contenedor_mantenimiento">
-    <div class="row form-group">
-        <label for="estado" class="col-form-label">Estado</label>
-        <div class="col-sm-5 ">
-            <select class="custom-select" id="estado" name="estado">
-                <option selected value="0">Todos</option>
-                <option value="1">Activo</option>
-                <option value="2">Eliminado</option>
-            </select>
-        </div>
-        <button class="btn btn-primary col-sm-6" onclick="verReporte()">
-            Ver Reporte
-        </button>
+<div class="container contenedor_mantenimiento">
+    <div class="row justify-content-center">
+        <form class="form-inline">
+            <div class="form-group my-2">
+                <label for="estado">Estado</label>
+            </div>
+            <div class="form-group mx-3 my-2">
+                <select class="custom-select" id="estado" name="estado">
+                    <option selected value="0">Todos</option>
+                    <option value="1">Activo</option>
+                    <option value="2">Eliminado</option>
+                </select>
+            </div>
+            <button class="btn btn-primary mb-2 my-2 pl-5 pr-5" type="button" onclick="verReporte()">Ver Reporte</button>
+        </form>
     </div>
-    
 </div>
 
 <div class="m-auto col-md-12">

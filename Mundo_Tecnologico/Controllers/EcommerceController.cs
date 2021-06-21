@@ -160,6 +160,42 @@ namespace Mundo_Tecnologico.Controllers
             return lista;
         }
 
+        IEnumerable<Venta> ListarVentasFechas(DateTime f1, DateTime f2)
+        {
+            List<Venta> lista = new List<Venta>();
+
+            using (SqlConnection con = new SqlConnection(cadena))
+            {
+                SqlCommand cmd = new SqlCommand("SP_LISTAR_VENTAS_FECHAS", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("f1", f1);
+                cmd.Parameters.AddWithValue("f2", f2);
+                con.Open();
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    Venta reg = new Venta()
+                    {
+                        codigo = dr.GetString(0),
+                        fecha = dr.GetDateTime(1),
+                        direccion = dr.GetString(2),
+                        total = dr.GetDecimal(3),
+                        estado = dr.GetByte(4),
+                        usuario = dr.GetString(5),
+                        distrito = dr.GetString(6),
+                        celular = dr.GetString(7),
+                        documento = dr.GetString(8)
+                    };
+
+                    lista.Add(reg);
+                }
+                dr.Close(); con.Close();
+            }
+
+            return lista;
+        }
+
         IEnumerable<Venta> Ventas()
         {
             return ListarVentas().Where(v => v.estado == 1 || v.estado == 2);
@@ -499,22 +535,22 @@ namespace Mundo_Tecnologico.Controllers
             return View(lista);
         }
 
-        public void MostrarReporte()
+        public ActionResult ReporteVentas()
+        {
+            return View();
+        }
+
+        public void MostrarReporte(DateTime f1, DateTime f2)
         {
             try
             {
                 IEnumerable<Venta> listaVentas = new List<Venta>();
-                if (2 != 0)
-                {
-                    listaVentas = ListarVentas();
-                }
-                else
-                {
-                    listaVentas = ListarVentas();
-                }
+
+                listaVentas = ListarVentasFechas(f1, f2);
+
 
                 ReportDocument rd = new ReportDocument();
-                rd.Load(Path.Combine(Server.MapPath("~/Reportes"), "ReportePrueba.rpt"));
+                rd.Load(Path.Combine(Server.MapPath("~/Reportes"), "ReporteVentas.rpt"));
                 rd.SetDataSource(listaVentas);
 
                 Response.Buffer = false;
@@ -522,7 +558,7 @@ namespace Mundo_Tecnologico.Controllers
                 Response.ClearHeaders();
 
 
-                rd.ExportToHttpResponse(ExportFormatType.PortableDocFormat, System.Web.HttpContext.Current.Response, false, "usuario");
+                rd.ExportToHttpResponse(ExportFormatType.PortableDocFormat, System.Web.HttpContext.Current.Response, false, "ventas");
 
             }
             catch (Exception ex)

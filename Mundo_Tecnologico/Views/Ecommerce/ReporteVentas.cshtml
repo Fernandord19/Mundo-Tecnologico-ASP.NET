@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "ReporteVentas";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+
+<style>
+    #frmReporte {
+        width: 100%;
+        height: 720px;
+    }
+</style>
+
+<div class="container contenedor_mantenimiento">
+    <div class="row justify-content-center">
+        <form class="form-inline">
+            <div class="form-group my-2">
+                <label for="estado">Fecha Inicio</label>
+            </div>
+            <div class="form-group mx-3 my-2">
+                <input type="datetime-local" name="f1" id="f1" required/>
+            </div>
+            <div class="form-group my-2">
+                <label for="estado">Fecha Fin</label>
+            </div>
+            <div class="form-group mx-3 my-2">
+                <input type="datetime-local" name="f2" id="f2"  required/>
+            </div>
+            <button class="btn btn-primary mb-2 my-2 pl-5 pr-5" type="button" onclick="verReporte()">Ver Reporte</button>
+        </form>
+    </div>
+</div>
+
+<div class="m-auto col-md-12">
+
+    <iframe id="frmReporte" frameborder="0" scrolling="no">
+    </iframe>
+
+</div>
+
+<script>
+    function verReporte() {
+        var f1 = document.getElementById("f1").value;
+        var f2 = document.getElementById("f2").value;
+        if (f1 == '' || f2 == '') {
+            alert("Ingrese las dos fechas")
+        } else {
+            document.getElementById("frmReporte").setAttribute("src", "/Ecommerce/MostrarReporte?f1=" + f1 + '&f2=' + f2)
+        }
+        
+        
+    }
+</script>
+
