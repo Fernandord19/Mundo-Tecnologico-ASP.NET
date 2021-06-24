@@ -16,14 +16,14 @@ namespace Mundo_Tecnologico.Reportes {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class ReportePrueba : ReportClass {
+    public class ReporteMarcas : ReportClass {
         
-        public ReportePrueba() {
+        public ReporteMarcas() {
         }
         
         public override string ResourceName {
             get {
-                return "ReportePrueba.rpt";
+                return "ReporteMarcas.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace Mundo_Tecnologico.Reportes {
         
         public override string FullResourceName {
             get {
-                return "Mundo_Tecnologico.Reportes.ReportePrueba.rpt";
+                return "Mundo_Tecnologico.Reportes.ReporteMarcas.rpt";
             }
             set {
                 // Do nothing
@@ -87,28 +87,12 @@ namespace Mundo_Tecnologico.Reportes {
                 return this.ReportDefinition.Sections[4];
             }
         }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_f1 {
-            get {
-                return this.DataDefinition.ParameterFields[0];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_f2 {
-            get {
-                return this.DataDefinition.ParameterFields[1];
-            }
-        }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedReportePrueba : Component, ICachedReport {
+    public class CachedReporteMarcas : Component, ICachedReport {
         
-        public CachedReportePrueba() {
+        public CachedReporteMarcas() {
         }
         
         [Browsable(false)]
@@ -145,7 +129,7 @@ namespace Mundo_Tecnologico.Reportes {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            ReportePrueba rpt = new ReportePrueba();
+            ReporteMarcas rpt = new ReporteMarcas();
             rpt.Site = this.Site;
             return rpt;
         }

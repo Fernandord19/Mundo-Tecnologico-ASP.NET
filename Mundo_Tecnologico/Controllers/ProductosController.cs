@@ -8,6 +8,8 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
 using System.IO;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
 
 namespace Mundo_Tecnologico.Controllers
 {
@@ -113,6 +115,11 @@ namespace Mundo_Tecnologico.Controllers
             }
 
             return lista;
+        }
+
+        IEnumerable<Producto> ListarProductosEstado(int estado)
+        {
+            return ListarProductos().Where(u => u.estado == estado);
         }
 
         Producto Buscar(string codigo)
@@ -321,6 +328,41 @@ namespace Mundo_Tecnologico.Controllers
             return RedirectToAction("Listado");
         }
 
-        
+        public ActionResult ReporteProductos()
+        {
+            return View();
+        }
+
+        public void MostrarReporte(int estado)
+        {
+            try
+            {
+                IEnumerable<Producto> listarproductos = new List<Producto>();
+                if (estado != 0)
+                {
+                    listarproductos = ListarProductosEstado(estado);
+                }
+                else
+                {
+                    listarproductos = ListarProductos();
+                }
+
+                ReportDocument rd = new ReportDocument();
+                rd.Load(Path.Combine(Server.MapPath("~/Reportes"), "ReporteProductos.rpt"));
+                rd.SetDataSource(listarproductos);
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+
+                rd.ExportToHttpResponse(ExportFormatType.PortableDocFormat, System.Web.HttpContext.Current.Response, false, "producto");
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.ToString());
+            }
+        }
     }
 }

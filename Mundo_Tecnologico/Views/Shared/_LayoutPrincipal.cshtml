@@ -74,9 +74,11 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reportes</a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Productos</a>
-                                    <a class="dropdown-item" href="#">Ventas</a>
+                                    <a class="dropdown-item" href="@Url.Action("ReporteProductos", "Productos")">Productos</a>
+                                    <a class="dropdown-item" href="@Url.Action("ReporteVentas", "Ecommerce")">Ventas</a>
                                     <a class="dropdown-item" href="@Url.Action("ReporteUsuarios", "Usuarios")">Usuarios</a>
+                                    <a class="dropdown-item" target="_blank" href="@Url.Action("ReporteCategorias", "Categorias")">Categorías</a>
+                                    <a class="dropdown-item" target="_blank" href="@Url.Action("ReporteMarcas", "Marcas")">Marcas</a>
                                 </div>
                             </li>
                         }

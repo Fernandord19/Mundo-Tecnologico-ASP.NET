@@ -7,6 +7,9 @@ using Mundo_Tecnologico.Models;
 using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
+using CrystalDecisions.CrystalReports.Engine;
+using System.IO;
+using CrystalDecisions.Shared;
 
 namespace Mundo_Tecnologico.Controllers
 {
@@ -168,6 +171,31 @@ namespace Mundo_Tecnologico.Controllers
         {
             TempData["mensaje"] = EliminarCategoria(codigo);
             return RedirectToAction("Listado");
+        }
+
+        public void ReporteCategorias()
+        {
+            try
+            {
+                IEnumerable<Categoria> listaCategorias = new List<Categoria>();
+                listaCategorias = ListarCategorias();
+
+                ReportDocument rd = new ReportDocument();
+                rd.Load(Path.Combine(Server.MapPath("~/Reportes"), "ReporteCategorias.rpt"));
+                rd.SetDataSource(listaCategorias);
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+
+                rd.ExportToHttpResponse(ExportFormatType.PortableDocFormat, System.Web.HttpContext.Current.Response, false, "categoria");
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.ToString());
+            }
         }
 
     }

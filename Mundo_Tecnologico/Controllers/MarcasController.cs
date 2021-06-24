@@ -7,7 +7,9 @@ using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
 using Mundo_Tecnologico.Models;
-
+using CrystalDecisions.CrystalReports.Engine;
+using System.IO;
+using CrystalDecisions.Shared;
 
 namespace Mundo_Tecnologico.Controllers
 {
@@ -189,6 +191,31 @@ namespace Mundo_Tecnologico.Controllers
         {
             TempData["mensaje"] = EliminarMarca(codigo);
             return RedirectToAction("Listado");
+        }
+
+        public void ReporteMarcas()
+        {
+            try
+            {
+                IEnumerable<Marca> listaMarcas = new List<Marca>();
+                listaMarcas = ListarMarcas();
+
+                ReportDocument rd = new ReportDocument();
+                rd.Load(Path.Combine(Server.MapPath("~/Reportes"), "ReporteMarcas.rpt"));
+                rd.SetDataSource(listaMarcas);
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+
+                rd.ExportToHttpResponse(ExportFormatType.PortableDocFormat, System.Web.HttpContext.Current.Response, false, "marcas");
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.ToString());
+            }
         }
     }
 }
